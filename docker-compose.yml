@@ -1,4 +1,15 @@
 services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    restart: always
+    ports:
+      - "3001:3001"
+    volumes:
+      - uptime-kuma-data:/app/data
+    networks:
+      - red-cba
+
   nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: proxy-manager
@@ -14,6 +25,7 @@ services:
   servidor-bd:
     image: mysql:8.0
     container_name: servidor-bd
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -25,6 +37,7 @@ services:
   app-backend:
     build: .
     container_name: app-backend
+    restart: always
     volumes:
       - .:/home/myapp
     environment:
@@ -44,3 +57,5 @@ networks:
 volumes:
   mysql-data:
     name: mysql-data
+  uptime-kuma-data:
+    name: uptime-kuma-data
