@@ -10,12 +10,25 @@ services:
     networks:
       - red-cba
 
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - red-cba
+    depends_on:
+      - app-backend
+
   nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: proxy-manager
     restart: always
     ports:
-      - "80:80" #Http
+      - "8080:80" #Http
       - "81:81" #Administración de la API
       - "443:443" #Https
     volumes:
