@@ -23,6 +23,7 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/mi-app-flask:latest
+          
       - name: Desplegar en el servidor cloud
         uses: appleboy/ssh-action@v1.0.3
         with: 
