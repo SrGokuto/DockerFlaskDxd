@@ -31,6 +31,6 @@ jobs:
           username: ${{ secrets.SERVER_ADMIN }}
           key:  ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd ~/DockerClaseDxd
+            cd ~/DockerFlaskDxd
             docker compose pull app-backend
             docker compose up -d
