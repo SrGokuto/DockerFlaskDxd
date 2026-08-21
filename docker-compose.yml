@@ -45,6 +45,8 @@ services:
       MYSQL_HOST: servidor-bd
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "5050:5050"
     networks:
       - red-cba
     depends_on:
