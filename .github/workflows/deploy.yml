@@ -24,11 +24,11 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/mi-app-flask:latest
       - name: Desplegar en el servidor cloud
-        uses: appleboy/ssh-action@1.0.3
+        uses: appleboy/ssh-action
         with: 
           host: ${{ secrets.SERVER_HOST }}
           name: ${{ secrets.SERVER_ADMIN }}
-          key:  ${{ secrets.SERVER_SSH_KEY }}
+          key:  ${{ secrets.gi }}
           script: |
             cd ~/DockerClaseDxd
             docker compose pull app-backend
