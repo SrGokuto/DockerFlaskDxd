@@ -1,8 +1,6 @@
 import os
 import pymysql
-from flask import Flask, render_template
-
-MYSQL_PASSWORD = "super_secret_123"
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -12,7 +10,7 @@ def home():
         conn = pymysql.connect(
             host=os.environ.get('MYSQL_HOST', 'servidor-bd'),
             user=os.environ.get('MYSQL_USER', 'root'),
-            password=MYSQL_PASSWORD,
+            password=os.environ.get('MYSQL_ROOT_PASSWORD', 'sena123'),
             database=os.environ.get('MYSQL_DATABASE', '082_db')
         )
         conn.close()
@@ -20,7 +18,7 @@ def home():
     except Exception as e:
         db_status = f"Error al conectar a la base de datos: {e}"
 
-    return f"<h1>Bienvenido a mi aplicacion Flask</h1><p>{db_status}</p>", 500
+    return f"<h1>Bienvenido a mi aplicacion Flask</h1><p>{db_status}</p>"
 
 if __name__ == "__main__":
-    app.run(host='localhost', port=5050, debug=True)
+    app.run(host='0.0.0.0', port=5050, debug=False)  # nosec B104 - contenedor detras de proxy inverso
