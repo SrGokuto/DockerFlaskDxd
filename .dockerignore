@@ -3,3 +3,9 @@ __pycache__/
 .git/
 .env
 *.md
+npm_data/
+npm_letsencrypt/
+nginx/
+.github/
+docker-compose.yml
+portainer-compose.yaml
