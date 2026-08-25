@@ -21,4 +21,4 @@ def home():
     return f"<h1>Bienvenido a mi aplicacion Flask</h1><p>{db_status}</p>"
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5050, debug=True)
+    app.run(host='0.0.0.0', port=5050, debug=False)

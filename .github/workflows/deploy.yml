@@ -20,7 +20,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest
+          pip install pytest bandit
+
+      - name: Ejecutar análisis de seguridad con Bandit
+        run: |
+          bandit -r . -s B101
 
       - name: Ejecutar pruebas unitarias
         run: |
@@ -46,6 +50,20 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/mi-app-flask:latest
 
+      - name: Escanear contenedor con trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ secrets.DOCKER_USERNAME }}/mi-app-flask:latest
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+
+      - name: Subir la imagen a docker hub
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/mi-app-flask:latest
+        
       - name: Desplegar en el servidor cloud
         uses: appleboy/ssh-action@v1.0.3
         with: 
