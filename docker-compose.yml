@@ -37,7 +37,7 @@ services:
     container_name: proxy-manager
     restart: always
     ports:
-      - "8080:80" #Http
+      - "80:80" #Http
       - "81:81" #Administración de la API
       - "443:443" #Https
     volumes:
